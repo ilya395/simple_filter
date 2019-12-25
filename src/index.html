@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Выбрать квартиру</title>
+
+	<link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="css/libs.min.css">
+	<link rel="stylesheet" href="css/main.css">
+
+
+</head>
+<body>
+
+	<!-- filter -->
+	<section class="filter-section">
+		<div class="container">
+			<div class="row">
+				<aside class="aside col-12 col-sm-6 col-md-4">
+					<div class="control-for-mob">
+						<button class="button-push push-to-filter hovered">
+							Показать фильтр
+						</button>
+					</div>
+					<div class="rooms-list">
+						<div class="button rooms-item one hovered">
+							Однокомнатные
+						</div>
+						<div class="button rooms-item two hovered">
+							Двухкомнатные
+						</div>
+						<div class="button rooms-item three hovered">
+							Трехкомнатные
+						</div>
+						<div class="button rooms-item four hovered">
+							Четырехкомнатные
+						</div>
+					</div>
+					<div class="ranges-list">
+						<div class="range-select price-line line">
+							<div class="line__title">
+								Стоимость, млн. руб.
+							</div>
+							<div class="line__information">
+								<span class="line__min-val-txt">
+									2
+								</span>
+								<span class="line__max-val-txt">
+									20
+								</span>
+							</div>
+							<div class="line__ranges">
+								<div class="line__end left"></div>
+								<div class="line__end right"></div>
+								<input type="range" class="line__value-input line__min-val-input" min="2" max="20" step="0.1" value="2">
+								<input type="range" class="line__value-input line__max-val-input" min="2" max="20" step="0.1" value="20">
+							</div>
+						</div>
+						<div class="range-select area-line line">
+							<div class="line__title">
+								Площадь, м.кв.
+							</div>
+							<div class="line__information">
+								<span class="line__min-val-txt">
+									10
+								</span>
+								<span class="line__max-val-txt">
+									200
+								</span>
+							</div>
+							<div class="line__ranges">
+								<div class="line__end left"></div>
+								<div class="line__end right"></div>
+								<input type="range" class="line__value-input line__min-val-input" min="10" max="200" step="0.01" value="10">
+								<input type="range" class="line__value-input line__max-val-input" min="10" max="200" step="0.01" value="200">
+							</div>
+						</div>
+						<div class="range-select floor-line line">
+							<div class="line__title">
+								Этаж
+							</div>
+							<div class="line__information">
+								<span class="line__min-val-txt">
+									1
+								</span>
+								<span class="line__max-val-txt">
+									22
+								</span>
+							</div>
+							<div class="line__ranges">
+								<div class="line__end left"></div>
+								<div class="line__end right"></div>
+								<input type="range" class="line__value-input line__min-val-input" min="1" max="22" step="1" value="1">
+								<input type="range" class="line__value-input line__max-val-input" min="1" max="22" step="1" value="22">
+							</div>
+						</div>
+					</div>
+					<div class="checkes-list">
+						<div class="button sight-item hovered">
+							Квартиры с террасами
+						</div>
+						<div class="button sight-item hovered">
+							Квартиры для семей
+						</div>
+						<div class="button sight-item hovered">
+							Квартиры с большой кухней
+						</div>
+						<div class="button sight-item hovered">
+							Квартиры с видом во двор
+						</div>
+						<div class="button sight-item hovered">
+							Квартиры с видом во двор
+						</div>
+					</div>
+					<div class="button-block">
+						<button class="button-push push-on-reset hovered">
+							Сбросить фильтр
+						</button>
+					</div>
+				</aside>
+				<main class="content col-12 col-sm-6 col-md-8">
+					<div class="row manage-view">
+						<div class="view-on view-on_bottom col-12 col-md-3">
+							По цене
+							<img src="/img/triangle.svg" alt="" class="view-on__img">
+						</div>
+						<div class="view-on view-on_bottom col-12 col-md-3">
+							По площади
+							<img src="img/triangle.svg" alt="" class="view-on__img">
+						</div>
+						<div class="view-on view-on_list col-12 col-md-3">
+							<div class="view-on__main-display hovered">
+								Выбрать БС
+								<img src="/img/triangle.svg" alt="" class="view-on__img">
+							</div>
+							<div class="view-on__select-display">
+								<ul class="select-display__list">
+									<li class="select-display__list-item hovered">
+										<span>Все <span>БС</span></span>
+										<img src="/img/triangle.svg" alt="" class="view-on__img">
+									</li>
+									<li class="select-display__list-item hovered">
+										<span>БС1 Дом1</span>
+										<img src="/img/triangle.svg" alt="" class="view-on__img">
+									</li>
+									<li class="select-display__list-item hovered">
+										<span>БС2 Дом1</span>
+										<img src="/img/triangle.svg" alt="" class="view-on__img">
+									</li>
+									<li class="select-display__list-item hovered">
+										<span>БС3 Дом1</span>
+										<img src="/img/triangle.svg" alt="" class="view-on__img">
+									</li>
+									<li class="select-display__list-item hovered">
+										<span>БС4 Дом1</span>
+										<img src="/img/triangle.svg" alt="" class="view-on__img">
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-12 col-md-1"></div>
+						<div class="view-on result-view col-3 col-md-1">
+							<img src="/img/bars-solid.svg" alt="" class="result-view__img">
+						</div>
+						<div class="view-on result-view result-view_biggest col-3 col-md-1">
+							<img src="/img/th-large-solid.svg" alt="" class="result-view__img">
+						</div>
+					</div>
+					<div class="content-main-block">
+<!-- 						<article class="section-plan col-12 col-md-6">
+							<div class="section-plan__inner-wrap hovered">
+								<div class="section-plan__image-block">
+									<img src="/img/1А2-1.jpg" alt="" class="section-plan__img">
+								</div>
+								<div class="section-plan__info-block">
+									Быстрый просмотр
+								</div>
+							</div>
+						</article> -->
+					</div>
+					<div class="more-content-btn">
+						<button class="button-push push-to-content hovered">
+							Больше планировок
+						</button>
+					</div>
+				</main>
+			</div>
+		</div>
+	</section>
+	<!-- filter -->
+
+	<!-- modal-win-->
+	<div class="modal-win">
+		<div class="modal-win__wrap container">
+			<div class="modal-win__inner-wrap row">
+				<div class="modal-win__image-block col-12 col-sm-12 col-md-6">
+					<img src="/img/1А2-1.jpg" alt="" class="modal-win__img">
+				</div>
+				<div class="modal-win__info-block col-12 col-sm-12 col-md-6">
+					<div class="modal-win__info-wrap">
+						<div class="title">
+							<div class="row-in-block__title">
+								1-КОМНАТНАЯ 1C.2-1
+							</div>
+						</div>
+						<div class="modal-win__row-in-block area">
+							<div class="row-in-block__title">
+								Площадь, м2
+							</div>
+							<div class="row-in-block__value">
+								35.53
+							</div>
+						</div>
+						<div class="modal-win__row-in-block price">
+							<div class="row-in-block__title">
+								Стоимость, руб.
+							</div>
+							<div class="row-in-block__value">
+								2418533
+							</div>
+						</div>
+						<div class="modal-win__row-in-block number">
+							<div class="row-in-block__title">
+								Номер
+							</div>
+							<div class="row-in-block__value">
+								308
+							</div>
+						</div>
+						<div class="modal-win__row-in-block floor">
+							<div class="row-in-block__title">
+								Этаж
+							</div>
+							<div class="row-in-block__value">
+								1
+							</div>
+						</div>
+						<div class="modal-win__row-in-block block-section">
+							<div class="row-in-block__title">
+								Секция
+							</div>
+							<div class="row-in-block__value">
+								8
+							</div>
+						</div>
+						<div class="modal-win__row-in-block house">
+							<div class="row-in-block__title">
+								Дом
+							</div>
+							<div class="row-in-block__value">
+								3
+							</div>
+						</div>
+					</div>
+					<div class="modal-win__btn-callback">
+						<div class="button-push push-on-lid hovered">
+							Оставить заявку
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-win__close-me-plz">
+				<img src="https://domsensation.ru/temps/img/close.png" alt="" class="modal-win__close-img">
+			</div>
+		</div>
+	</div>
+	<!-- /modal-win -->
+
+	<script src="js/common.js"></script>
+
+</body>
+</html>
