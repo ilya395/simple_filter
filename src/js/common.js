@@ -120,14 +120,22 @@ window.onload = function(){
 		otherAttributes: [false, false, false, false, false]
 	}
 	giveValuesForInput(); // что понажимали в фильтре + переписываем управляющий объект
-	let managementDefaultFilterObject = managementFilterObject;
+	let managementDefaultFilterObject = managementFilterObject; // дефолтный управляющий объект для фильтра
 	// console.log(managementDefaultFilterObject);
 	//
 	let flatsListAfterFilter = {}; // массив данных, который будем потображать после фильтрации
-	mainFilter(managementFilterObject);
+	mainFilter(managementFilterObject); // фильтруем и возвращаем объект, который напечатаем
+	//
+	let managementDisplayPanel = { // управляющий объект панеи отображения
+		sortPrice: 'asc',
+		sortArea: 'desc',
+		sortBs: [],
+		sortView: 'market'
+	};
+	currentStateViewPanel(); // проверяем, что выбрано на панели отображения
 	//
 	let defaultCount = 6; // прирост позиций
-	drawContent(flatsListAfterFilter, defaultCount, true);
+	drawContent(flatsListAfterFilter, defaultCount, true, managementDisplayPanel); // рисуем контент
 	//
 	function giveValuesForInput(){
 		//
@@ -244,45 +252,214 @@ window.onload = function(){
 		return flatsListAfterFilter;
 	}
 	//
-	// сорировка
-	//
-	// function sortData(){
-
-	// }
-	//
 	// отрисуем данные
 	//
-	function drawContent(obj, count, allInNull){
+	function drawContent(obj, count, allInNull, view){
+		console.log(view);
+		// //
+		// managementDisplayPanel = {
+		// 	sortPrice: 'asc',
+		// 	sortArea: 'desc',
+		// 	sortBs: [],
+		// 	sortView: 'market'
+		// };
+		let arrayFilteredContent = [];
+		for(let i in obj){
+			for(let j = 0; j < view['sortBs'].length; j++){
+				if(view['sortBs'][j][0] == obj[i]['bs'] && view['sortBs'][j][1] == obj[i]['building']){
+					console.log('ok');
+					arrayFilteredContent.push([
+												obj[i]['image'],
+												obj[i]['room_count'],
+												obj[i]['bs'],
+												obj[i]['price'],
+												obj[i]['plan_name'],
+												obj[i]['building'],
+												obj[i]['area'],
+												obj[i]['id'],
+												obj[i]['number']
+											]);
+				}
+			}
+		}
+		//
+		if(document.querySelector(".sort-price-btn").classList.contains("active")){
+			//
+			if(view['sortArea'] == 'asc'){
+				arrayFilteredContent.sort(function(a,b){
+					return -(a[6] - b[6]);
+				});
+			}else if(view['sortArea'] == 'desc'){
+				arrayFilteredContent.sort(function(a,b){
+					return (a[6] - b[6]);
+				});
+			}
+			//
+			if(view['sortPrice'] == 'asc'){
+				arrayFilteredContent.sort(function(a,b){
+					return -(a[3] - b[3]);
+				});
+			}else if(view['sortPrice'] == 'desc'){
+				arrayFilteredContent.sort(function(a,b){
+					return (a[3] - b[3]);
+				});
+			}
+		}else if(document.querySelector(".sort-area-btn").classList.contains("active")){
+			//
+			if(view['sortPrice'] == 'asc'){
+				arrayFilteredContent.sort(function(a,b){
+					return -(a[3] - b[3]);
+				});
+			}else if(view['sortPrice'] == 'desc'){
+				arrayFilteredContent.sort(function(a,b){
+					return (a[3] - b[3]);
+				});
+			}
+			//
+			if(view['sortArea'] == 'asc'){
+				arrayFilteredContent.sort(function(a,b){
+					return -(a[6] - b[6]);
+				});
+			}else if(view['sortArea'] == 'desc'){
+				arrayFilteredContent.sort(function(a,b){
+					return (a[6] - b[6]);
+				});
+			}
+		}
+		console.log(arrayFilteredContent);
+		//
 		let workBlock = document.querySelector(".content-main-block");
 		let alreadyHere = document.querySelectorAll(".content-main-block .section-plan");
 		if(allInNull == false){ //false - добавить, true - напечатать заного
 			if(alreadyHere.length > 0){
 				let j = 1;
-				for(let i = (alreadyHere.length); i < (alreadyHere.length + count); i++){
-					workBlock.insertAdjacentHTML("beforeend", 
-						`<article class="section-plan col-12 col-md-6">
-							<div class="section-plan__inner-wrap hovered">
-								<div class="section-plan__image-block">
-									<img src="${obj[i].image}" alt="" class="section-plan__img">
-								</div>
-								<div class="section-plan__info-block">
-									Быстрый просмотр
-								</div>
-							</div>
-						</article>`
-					);
-				}
-			}else{
-				for(let i in obj){
-					if(i < count){
+				if(view['sortView'] == 'market'){
+					for(let i = (alreadyHere.length); i < (alreadyHere.length + count); i++){
 						workBlock.insertAdjacentHTML("beforeend", 
 							`<article class="section-plan col-12 col-md-6">
-								<div class="section-plan__inner-wrap hovered">
+								<div class="section-plan__inner-wrap market hovered">
 									<div class="section-plan__image-block">
-										<img src="${obj[i].image}" alt="" class="section-plan__img">
+										<img src="${arrayFilteredContent[i][0]}" alt="" class="section-plan__img">
 									</div>
 									<div class="section-plan__info-block">
 										Быстрый просмотр
+									</div>
+								</div>
+							</article>`
+						);
+					}
+				}else if(view['sortView'] == 'lines'){
+					// workBlock.insertAdjacentHTML("beforeend", 
+					// 	`<div class="section-plan section-plan__inner-wrap lines row hovered">
+					// 			<div class="section-plan__cell col">
+					// 				№ Кв.
+					// 			</div>
+					// 			<div class="section-plan__cell col">
+					// 				№ Дома
+					// 			</div>
+					// 			<div class="section-plan__cell col">
+					// 				№ Подъезда
+					// 			</div>
+					// 			<div class="section-plan__cell col">
+					// 				Кол-во комнат
+					// 			</div>
+					// 			<div class="section-plan__cell col">
+					// 				Общ. площ., м.кв.
+					// 			</div>
+					// 			<div class="section-plan__cell col">
+					// 				Стоимость, руб.
+					// 			</div>
+					// 		</div>`
+					// );
+					for(let i = (alreadyHere.length); i < (alreadyHere.length + count); i++){
+						workBlock.insertAdjacentHTML("beforeend", 
+							`<article class="section-plan col-12">
+								<div class="section-plan__inner-wrap lines row hovered">
+									<div class="section-plan__cell col">
+										${arrayFilteredContent[i][8]}
+									</div>
+									<div class="section-plan__cell col">
+										${arrayFilteredContent[i][5]}
+									</div>
+									<div class="section-plan__cell col">
+										${arrayFilteredContent[i][2]}
+									</div>
+									<div class="section-plan__cell col">
+										${arrayFilteredContent[i][1]}
+									</div>
+									<div class="section-plan__cell col">
+										${arrayFilteredContent[i][6]}
+									</div>
+									<div class="section-plan__cell col">
+										${arrayFilteredContent[i][3]}
+									</div>
+								</div>
+							</article>`
+						);
+					}
+				}
+			}else{
+				if(view['sortView'] == 'market'){
+					for(let i in arrayFilteredContent){
+						if(i < count){
+							workBlock.insertAdjacentHTML("beforeend", 
+								`<article class="section-plan col-12 col-md-6">
+									<div class="section-plan__inner-wrap market hovered">
+										<div class="section-plan__image-block">
+											<img src="${arrayFilteredContent[i][0]}" alt="" class="section-plan__img">
+										</div>
+										<div class="section-plan__info-block">
+											Быстрый просмотр
+										</div>
+									</div>
+								</article>`
+							);
+						}
+					}
+				}else if(view['sortView'] == 'lines'){
+					workBlock.insertAdjacentHTML("beforeend", 
+						`<div class="section-plan section-plan__inner-wrap lines row hovered">
+								<div class="section-plan__cell col">
+									№ Кв.
+								</div>
+								<div class="section-plan__cell col">
+									№ Дома
+								</div>
+								<div class="section-plan__cell col">
+									№ Подъезда
+								</div>
+								<div class="section-plan__cell col">
+									Кол-во комнат
+								</div>
+								<div class="section-plan__cell col">
+									Общ. площ., м.кв.
+								</div>
+								<div class="section-plan__cell col">
+									Стоимость, руб.
+								</div>
+							</div>`
+					);
+					for(let i = (alreadyHere.length); i < (alreadyHere.length + count); i++){
+						workBlock.insertAdjacentHTML("beforeend", 
+							`<article class="section-plan col-12">
+								<div class="section-plan__inner-wrap lines row hovered">
+									<div class="section-plan__cell col">
+										${arrayFilteredContent[i][8]}
+									</div>
+									<div class="section-plan__cell col">
+										${arrayFilteredContent[i][5]}
+									</div>
+									<div class="section-plan__cell col">
+										${arrayFilteredContent[i][2]}
+									</div>
+									<div class="section-plan__cell col">
+										${arrayFilteredContent[i][1]}
+									</div>
+									<div class="section-plan__cell col">
+										${arrayFilteredContent[i][6]}
+									</div>
+									<div class="section-plan__cell col">
+										${arrayFilteredContent[i][3]}
 									</div>
 								</div>
 							</article>`
@@ -294,16 +471,67 @@ window.onload = function(){
 			for(let i of alreadyHere){
 				i.remove();
 			}
-			for(let i in obj){
-				if(i < count){
-					workBlock.insertAdjacentHTML("beforeend", 
-						`<article class="section-plan col-12 col-md-6">
-							<div class="section-plan__inner-wrap hovered">
-								<div class="section-plan__image-block">
-									<img src="${obj[i].image}" alt="" class="section-plan__img">
+			if(view['sortView'] == 'market'){
+				for(let i in arrayFilteredContent){
+					if(i < count){
+						workBlock.insertAdjacentHTML("beforeend", 
+							`<article class="section-plan col-12 col-md-6">
+								<div class="section-plan__inner-wrap market hovered">
+									<div class="section-plan__image-block">
+										<img src="${arrayFilteredContent[i][0]}" alt="" class="section-plan__img">
+									</div>
+									<div class="section-plan__info-block">
+										Быстрый просмотр
+									</div>
 								</div>
-								<div class="section-plan__info-block">
-									Быстрый просмотр
+							</article>`
+						);
+					}
+				}
+			}else if(view['sortView'] == 'lines'){
+				workBlock.insertAdjacentHTML("beforeend", 
+					`<div class="section-plan section-plan__inner-wrap lines row hovered">
+							<div class="section-plan__cell col">
+								№ Кв.
+							</div>
+							<div class="section-plan__cell col">
+								№ Дома
+							</div>
+							<div class="section-plan__cell col">
+								№ Подъезда
+							</div>
+							<div class="section-plan__cell col">
+								Кол-во комнат
+							</div>
+							<div class="section-plan__cell col">
+								Общ. площ., м.кв.
+							</div>
+							<div class="section-plan__cell col">
+								Стоимость, руб.
+							</div>
+						</div>`
+				);
+				for(let i = (alreadyHere.length); i < (alreadyHere.length + count); i++){
+					workBlock.insertAdjacentHTML("beforeend", 
+						`<article class="section-plan col-12">
+							<div class="section-plan__inner-wrap lines row hovered">
+								<div class="section-plan__cell col">
+									${arrayFilteredContent[i][8]}
+								</div>
+								<div class="section-plan__cell col">
+									${arrayFilteredContent[i][5]}
+								</div>
+								<div class="section-plan__cell col">
+									${arrayFilteredContent[i][2]}
+								</div>
+								<div class="section-plan__cell col">
+									${arrayFilteredContent[i][1]}
+								</div>
+								<div class="section-plan__cell col">
+									${arrayFilteredContent[i][6]}
+								</div>
+								<div class="section-plan__cell col">
+									${arrayFilteredContent[i][3]}
 								</div>
 							</div>
 						</article>`
@@ -316,7 +544,7 @@ window.onload = function(){
 	let pushToContentBtn = document.querySelector(".button-push.push-to-content.hovered");
 	pushToContentBtn.addEventListener("click", function(){
 		// defaultCount = defaultCount + 6;
-		drawContent(flatsListAfterFilter, defaultCount, false);
+		drawContent(flatsListAfterFilter, defaultCount, false, managementDisplayPanel);
 	})
 	//
 	// управление
@@ -418,21 +646,190 @@ window.onload = function(){
 		//
 		// giveValuesForInput();
 		// mainFilter(managementDefaultFilterObject);
-		// drawContent(flatsListAfterFilter, 6, true);
+		// drawContent(flatsListAfterFilter, 6, true, managementDisplayPanel);
 
-		onStartFilter()
+		onStartFilter();
 	})
 	//
 	// управление панели отображения
 	//
+	function currentStateViewPanel(){
+		// что выбрано в сортировке по цене
+		let sortPriceBtn = document.querySelector(".sort-price-btn");
+		sortPriceBtn.addEventListener("click", function(){
+			if(sortPriceBtn.classList.contains("asc")){
+				sortPriceBtn.classList.remove("asc");
+				sortPriceBtn.classList.add("desc");
+				howShouldThisBeDisplayed();
+			}else if(sortPriceBtn.classList.contains("desc")){
+				sortPriceBtn.classList.remove("desc");
+				sortPriceBtn.classList.add("asc");
+				howShouldThisBeDisplayed();
+			}
+		});
+		// что выбрано в сортировке по площади
+		let sortAreaBtn = document.querySelector(".sort-area-btn");
+		sortAreaBtn.addEventListener("click", function(){
+			if(sortAreaBtn.classList.contains("asc")){
+				sortAreaBtn.classList.remove("asc");
+				sortAreaBtn.classList.add("desc");
+				howShouldThisBeDisplayed();
+			}else if(sortAreaBtn.classList.contains("desc")){
+				sortAreaBtn.classList.remove("desc");
+				sortAreaBtn.classList.add("asc");
+				howShouldThisBeDisplayed();
+			}
+		});
+		//
+		let mainParameter = [sortPriceBtn,sortAreaBtn];
+		for(let i of mainParameter){
+			// i.classList.remove("active");
+			i.addEventListener("click", function(){
+				for(let j of mainParameter){
+					j.classList.remove("active");
+				}
+				i.classList.add("active");
+			});
+		}
+		// что было выбрано в сортировке по блок секции
+		let sortBsBtn = document.querySelector(".sort-bs-btn");
+		sortBsBtn.children[0].addEventListener("click", function(){
+			if(sortBsBtn.children[0].classList.contains("active")){
+				sortBsBtn.children[0].classList.remove("active");
+				sortBsBtn.children[1].classList.remove("active");
+			}else{
+				sortBsBtn.children[0].classList.add("active");
+				sortBsBtn.children[1].classList.add("active");
+			}
+		});
+		let listWithBs = [];
+		makeMyListWithFlats();
+		let sortLinesOrMarketItems = document.querySelectorAll(".select-display__list-item");
+		for(let i of sortLinesOrMarketItems){
+			if(i == sortLinesOrMarketItems[0]){
+				i.addEventListener("click", function(){
+					for(let j of sortLinesOrMarketItems){
+						j.classList.remove("active");
+					}
+					i.classList.add("active");
+					howShouldThisBeDisplayed();
+				});
+			}else{
+				i.addEventListener("click", function(){
+					if(sortLinesOrMarketItems[0].classList.contains("active")){
+						sortLinesOrMarketItems[0].classList.remove("active");
+					}
+					if(i.classList.contains("active")){
+						i.classList.remove("active");
+						howShouldThisBeDisplayed();
+					}else{
+						i.classList.add("active");
+						howShouldThisBeDisplayed();
+					}
+				});
+			}
+		}
+		// какой выд отображения был выбран
+		let sortLinesBtn = document.querySelector(".sort-lines-btn");
+		let sortMarketBtn = document.querySelector(".sort-market-btn");
+		let sortLinesOrMarket = [sortLinesBtn, sortMarketBtn];
+		for(let i in sortLinesOrMarket){
+			sortLinesOrMarket[i].addEventListener("click", function(){
+				for(let j of sortLinesOrMarket){
+					// if(j.classList.contains("active")){
+					// 	j.classList.remove("active");
+					// }else{
+					// 	j.classList.add("active");
+					// }
+					j.classList.remove("active");
+				}
+				sortLinesOrMarket[i].classList.add("active");
+				howShouldThisBeDisplayed();
+			});
+		}
+		//
+		function makeMyListWithFlats(){ // нарисуем блок секции
+			let pootBsHere = document.querySelector(".select-display__list");
+			let allNumbersBs = [];
+			for(let i of flatsList){
+				// console.log(i['bs'], i['building']);
+				let itemCount = false;
+				// if(allNumbersBs.length == 0){
+				// 	allNumbersBs.push(i['bs']);
+				// }else{
+				for(let j = 0; j < allNumbersBs.length; j++){
+					if(i['bs'] == allNumbersBs[j][0] && i['building'] == allNumbersBs[j][1]){
+						itemCount = true;
+					}
+				}
+				// }
+				if(itemCount == false){
+					allNumbersBs.push([i['bs'], i['building']]);
+				}
+			}
+			function arrNumbers(a,b){
+				if (a > b) return 1;
+				if (a == b) return 0;
+				if (a < b) return -1;
+			}
+			allNumbersBs.sort(arrNumbers);
+			listWithBs = allNumbersBs;
+			managementDisplayPanel['sortBs'] = allNumbersBs;
+			for(let k of allNumbersBs){
+				pootBsHere.insertAdjacentHTML("beforeend", 
+					`<li class="select-display__list-item hovered">
+						<span>БС${k[0]} Дом${k[1]}</span>
+						<img src="/img/triangle.svg" alt="" class="view-on__img">
+					</li>`
+				);
+			}
+		}
+		//
+		function howShouldThisBeDisplayed() { // посмотрим, как нужно отрисовать контент
+			//
+			if(sortPriceBtn.classList.contains("asc")){
+				managementDisplayPanel['sortPrice'] = 'asc';
+			}else if(sortPriceBtn.classList.contains("desc")){
+				managementDisplayPanel['sortPrice'] = 'desc';
+			}
+			//
+			if(sortAreaBtn.classList.contains("asc")){
+				managementDisplayPanel['sortArea'] = 'asc';
+			}else if(sortAreaBtn.classList.contains("desc")){
+				managementDisplayPanel['sortArea'] = 'desc';
+			}
+			//
+			managementDisplayPanel['sortBs'] = [];
+			if(sortLinesOrMarketItems[0].classList.contains("active")){
+				managementDisplayPanel['sortBs'] = listWithBs;
+			}else{
+				for(let i = 1; i < sortLinesOrMarketItems.length; i++){
+					if(sortLinesOrMarketItems[i].classList.contains("active")){
+						managementDisplayPanel['sortBs'].push(listWithBs[i - 1]);
+					}
+				}
+			}
+			//
+			if(sortLinesBtn.classList.contains("active")){
+				managementDisplayPanel['sortView'] = "lines";
+			}else{
+				managementDisplayPanel['sortView'] = "market";
+			}
+			//
+			console.log(managementDisplayPanel);
+			onStartFilter();
+			return managementDisplayPanel;
+		}
+	//
+	}
 	// вызов фильтра заного
 	function onStartFilter(){
 		giveValuesForInput();
-		console.log(managementFilterObject);
+		// console.log(managementFilterObject);
 
 		mainFilter(managementFilterObject);
-		console.log(flatsListAfterFilter);
+		// console.log(flatsListAfterFilter);
 
-		drawContent(flatsListAfterFilter, defaultCount, true);
+		drawContent(flatsListAfterFilter, defaultCount, true, managementDisplayPanel);
 	}
 }

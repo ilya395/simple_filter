@@ -1,5 +1,6 @@
 @charset "UTF-8";
 /* шрифты */
+@import url("https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600&display=swap");
 /* simple */
 html {
   -webkit-box-sizing: border-box;
@@ -223,9 +224,26 @@ body {
       -ms-flex-align: end;
           align-items: flex-end; }
 
-.result-view_biggest img {
+.result-view_biggest img, .result-view_biggest svg {
   margin-left: -2px;
   margin-right: -2px; }
+
+.view-on.view-on_bottom.hovered .view-on__img {
+  -webkit-transition: -webkit-transform 0.4s linear;
+  transition: -webkit-transform 0.4s linear;
+  -o-transition: transform 0.4s linear;
+  transition: transform 0.4s linear;
+  transition: transform 0.4s linear, -webkit-transform 0.4s linear; }
+
+.view-on.view-on_bottom.asc .view-on__img {
+  -webkit-transform: rotate(0deg);
+      -ms-transform: rotate(0deg);
+          transform: rotate(0deg); }
+
+.view-on.view-on_bottom.desc .view-on__img {
+  -webkit-transform: rotate(180deg);
+      -ms-transform: rotate(180deg);
+          transform: rotate(180deg); }
 
 .view-on_list {
   display: -webkit-box;
@@ -271,7 +289,8 @@ body {
 
 .view-on__main-display.hovered.active {
   -webkit-box-shadow: 0 9px 5px -5px rgba(0, 0, 0, 0.2);
-          box-shadow: 0 9px 5px -5px rgba(0, 0, 0, 0.2); }
+          box-shadow: 0 9px 5px -5px rgba(0, 0, 0, 0.2);
+  z-index: 55; }
 
 .view-on__main-display.hovered .view-on__img {
   margin-bottom: 0px;
@@ -294,6 +313,17 @@ body {
   padding-left: 0px;
   padding-top: 40px;
   padding-right: 30px; }
+
+.view-on__select-display.active {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex; }
+
+.view-on__main-display.hovered.active .view-on__img {
+  -webkit-transform: rotate(90deg);
+      -ms-transform: rotate(90deg);
+          transform: rotate(90deg); }
 
 .select-display__list-item {
   display: -webkit-box;
@@ -319,7 +349,7 @@ body {
   -o-transition: color 0.3s linear;
   transition: color 0.3s linear; }
 
-.select-display__list-item.hovered:hover span {
+.select-display__list-item.hovered:hover span, .select-display__list-item.hovered.active span {
   color: #212529; }
 
 .select-display__list-item.hovered .view-on__img {
@@ -331,12 +361,29 @@ body {
   -o-transition: opacity 0.3s linear;
   transition: opacity 0.3s linear; }
 
-.select-display__list-item.hovered:hover .view-on__img {
+.select-display__list-item.hovered:hover .view-on__img, .select-display__list-item.hovered.active .view-on__img {
   opacity: 1; }
 
 .select-display__list {
   padding-left: 0px;
-  margin-bottom: 0px; }
+  margin-bottom: 0px;
+  width: 100%;
+  background-color: #fff;
+  -webkit-box-shadow: 0px 5px 10px 1px rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 5px 10px 1px rgba(0, 0, 0, 0.25); }
+
+.result-view__img, .view-on.result-view svg path {
+  fill: #212529;
+  stroke: #212529; }
+
+.result-view__img {
+  -webkit-transition: all 0.3s linear;
+  -o-transition: all 0.3s linear;
+  transition: all 0.3s linear; }
+
+.view-on.result-view:hover svg path, .view-on.result-view.active svg path {
+  fill: #4e5761;
+  stroke: #4e5761; }
 
 .content-main-block {
   padding-top: 50px;
@@ -353,7 +400,7 @@ body {
 .section-plan {
   margin-bottom: 50px; }
 
-.section-plan__inner-wrap {
+.section-plan__inner-wrap.market {
   border: 2px solid #EBEAED;
   border-radius: 10px;
   -webkit-transition: border 0.3s linear;
@@ -384,12 +431,15 @@ body {
   -o-transition: color 0.3s linear, border-top 0.3s linear;
   transition: color 0.3s linear, border-top 0.3s linear; }
 
-.section-plan__inner-wrap.hovered:hover .section-plan__info-block {
+.section-plan__inner-wrap.market.hovered:hover .section-plan__info-block {
   color: #212529;
   border-top: 2px solid #b7b3be; }
 
-.section-plan__inner-wrap.hovered:hover {
+.section-plan__inner-wrap.market.hovered:hover {
   border-color: #b7b3be; }
+
+.section-plan__cell {
+  text-align: center; }
 
 .more-content-btn {
   margin-top: 50px;
@@ -630,7 +680,7 @@ body {
   .ranges-list {
     margin-bottom: 120px; }
   .sight-item {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 500; }
   .checkes-list {
     margin-bottom: 100px; }

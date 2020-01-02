@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>Выбрать квартиру</title>
 
-	<link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600&display=swap" rel="stylesheet">
+	<!-- <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600&display=swap" rel="stylesheet"> -->
 
 	<link rel="stylesheet" href="css/libs.min.css">
 	<link rel="stylesheet" href="css/main.css">
@@ -122,50 +122,40 @@
 				</aside>
 				<main class="content col-12 col-sm-6 col-md-8">
 					<div class="row manage-view">
-						<div class="view-on view-on_bottom col-12 col-md-3">
+						<div class="view-on view-on_bottom asc hovered sort-price-btn col-12 col-md-3 active">
 							По цене
 							<img src="/img/triangle.svg" alt="" class="view-on__img">
 						</div>
-						<div class="view-on view-on_bottom col-12 col-md-3">
+						<div class="view-on view-on_bottom asc hovered sort-area-btn col-12 col-md-3">
 							По площади
 							<img src="img/triangle.svg" alt="" class="view-on__img">
 						</div>
-						<div class="view-on view-on_list col-12 col-md-3">
+						<div class="view-on view-on_list sort-bs-btn col-12 col-md-3">
 							<div class="view-on__main-display hovered">
 								Выбрать БС
 								<img src="/img/triangle.svg" alt="" class="view-on__img">
 							</div>
 							<div class="view-on__select-display">
 								<ul class="select-display__list">
-									<li class="select-display__list-item hovered">
+									<li class="select-display__list-item hovered active">
 										<span>Все <span>БС</span></span>
-										<img src="/img/triangle.svg" alt="" class="view-on__img">
-									</li>
-									<li class="select-display__list-item hovered">
-										<span>БС1 Дом1</span>
-										<img src="/img/triangle.svg" alt="" class="view-on__img">
-									</li>
-									<li class="select-display__list-item hovered">
-										<span>БС2 Дом1</span>
-										<img src="/img/triangle.svg" alt="" class="view-on__img">
-									</li>
-									<li class="select-display__list-item hovered">
-										<span>БС3 Дом1</span>
-										<img src="/img/triangle.svg" alt="" class="view-on__img">
-									</li>
-									<li class="select-display__list-item hovered">
-										<span>БС4 Дом1</span>
 										<img src="/img/triangle.svg" alt="" class="view-on__img">
 									</li>
 								</ul>
 							</div>
 						</div>
 						<div class="col-12 col-md-1"></div>
-						<div class="view-on result-view col-3 col-md-1">
-							<img src="/img/bars-solid.svg" alt="" class="result-view__img">
+						<div class="view-on result-view sort-lines-btn col-3 col-md-1">
+							<!-- <img src="/img/bars-solid.svg" alt="" class="result-view__img"> -->
+							<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="bars" class="svg-inline--fa fa-bars fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="result-view__img">
+								<path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path>
+							</svg>
 						</div>
-						<div class="view-on result-view result-view_biggest col-3 col-md-1">
-							<img src="/img/th-large-solid.svg" alt="" class="result-view__img">
+						<div class="view-on result-view sort-market-btn result-view_biggest col-3 col-md-1 active">
+							<!-- <img src="/img/th-large-solid.svg" alt="" class="result-view__img"> -->
+							<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="th-large" class="svg-inline--fa fa-th-large fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="result-view__img">
+								<path d="M296 32h192c13.255 0 24 10.745 24 24v160c0 13.255-10.745 24-24 24H296c-13.255 0-24-10.745-24-24V56c0-13.255 10.745-24 24-24zm-80 0H24C10.745 32 0 42.745 0 56v160c0 13.255 10.745 24 24 24h192c13.255 0 24-10.745 24-24V56c0-13.255-10.745-24-24-24zM0 296v160c0 13.255 10.745 24 24 24h192c13.255 0 24-10.745 24-24V296c0-13.255-10.745-24-24-24H24c-13.255 0-24 10.745-24 24zm296 184h192c13.255 0 24-10.745 24-24V296c0-13.255-10.745-24-24-24H296c-13.255 0-24 10.745-24 24v160c0 13.255 10.745 24 24 24z"></path>
+							</svg>
 						</div>
 					</div>
 					<div class="content-main-block">
