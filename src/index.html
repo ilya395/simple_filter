@@ -21,10 +21,10 @@
 				<aside class="aside col-12 col-sm-6 col-md-4">
 					<div class="control-for-mob">
 						<button class="button-push push-to-filter hovered">
-							Показать фильтр
+							Скрыть фильтр
 						</button>
 					</div>
-					<div class="rooms-list">
+					<div class="rooms-list active">
 						<div class="button rooms-item one hovered">
 							Однокомнатные
 						</div>
@@ -38,7 +38,7 @@
 							Четырехкомнатные
 						</div>
 					</div>
-					<div class="ranges-list">
+					<div class="ranges-list active">
 						<div class="range-select price-line line">
 							<div class="line__title">
 								Стоимость, млн. руб.
@@ -97,7 +97,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="checkes-list">
+					<div class="checkes-list active">
 						<div class="button sight-item hovered">
 							Квартиры с террасами
 						</div>
@@ -121,7 +121,7 @@
 					</div>
 				</aside>
 				<main class="content col-12 col-sm-6 col-md-8">
-					<div class="row manage-view">
+					<div class="row manage-view active">
 						<div class="view-on view-on_bottom asc hovered sort-price-btn col-12 col-md-3 active">
 							По цене
 							<img src="/img/triangle.svg" alt="" class="view-on__img">
@@ -184,7 +184,7 @@
 	<!-- modal-win-->
 	<div class="modal-win">
 		<div class="modal-win__wrap container">
-			<div class="modal-win__inner-wrap row">
+			<div class="modal-win__inner-wrap row plan active">
 				<div class="modal-win__image-block col-12 col-sm-12 col-md-6">
 					<img src="/img/1А2-1.jpg" alt="" class="modal-win__img">
 				</div>
@@ -251,8 +251,37 @@
 					</div>
 				</div>
 			</div>
-			<div class="modal-win__close-me-plz">
+			<div class="modal-win__close-me-plz hovered">
 				<img src="https://domsensation.ru/temps/img/close.png" alt="" class="modal-win__close-img">
+			</div>
+			<div class="modal-win__inner-wrap row callback-form">
+				<div class="callback-form__form-block">
+					<div class="callback-form__title">
+						Обратная связь
+					</div>
+					<div class="callback-form__sub-title">
+						Мы ответим на любые ваши вопросы!
+					</div>
+					<div class="callback-form__field">
+						<label for="name">Имя</label>
+						<input type="text" class="callback-form__input focused name-field" id="name" name="name" placeholder="Имя">
+					</div>
+					<div class="callback-form__field">
+						<label for="phone">Телефон</label>
+						<input type="tel" class="callback-form__input focused phone-field phonemask" id="phone" name="phone" placeholder="Телефон">
+					</div>
+					<div class="callback-form__wrap-btn">
+						<div class="callback-form__wrap-inner-btn">
+							<button class="button-push callback-form__forth-button hovered">К планировке</button>
+						</div>
+						<div class="callback-form__wrap-inner-btn">
+							<button class="button-push callback-form__button hovered">Отправить</button>
+							<div class="tip-text">
+								Нажимая кнопку отправить, вы даёте согласие на обработку данных
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

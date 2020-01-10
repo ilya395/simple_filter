@@ -267,7 +267,6 @@ window.onload = function(){
 		for(let i in obj){
 			for(let j = 0; j < view['sortBs'].length; j++){
 				if(view['sortBs'][j][0] == obj[i]['bs'] && view['sortBs'][j][1] == obj[i]['building']){
-					console.log('ok');
 					arrayFilteredContent.push([
 												obj[i]['image'],
 												obj[i]['room_count'],
@@ -277,7 +276,8 @@ window.onload = function(){
 												obj[i]['building'],
 												obj[i]['area'],
 												obj[i]['id'],
-												obj[i]['number']
+												obj[i]['number'],
+												obj[i]['floor']
 											]);
 				}
 			}
@@ -326,7 +326,6 @@ window.onload = function(){
 				});
 			}
 		}
-		console.log(arrayFilteredContent);
 		//
 		let workBlock = document.querySelector(".content-main-block");
 		let alreadyHere = document.querySelectorAll(".content-main-block .section-plan");
@@ -334,7 +333,14 @@ window.onload = function(){
 			if(alreadyHere.length > 0){
 				let j = 1;
 				if(view['sortView'] == 'market'){
-					for(let i = (alreadyHere.length); i < (alreadyHere.length + count); i++){
+					let paramCount = 0;
+					if(alreadyHere.length + count <= arrayFilteredContent.length){
+						paramCount = count;
+					}else{
+						paramCount = count - (alreadyHere.length + count - arrayFilteredContent.length);
+					}
+					console.log(alreadyHere.length + count, arrayFilteredContent.length, paramCount);
+					for(let i = (alreadyHere.length); i < (alreadyHere.length + paramCount); i++){
 						workBlock.insertAdjacentHTML("beforeend", 
 							`<article class="section-plan col-12 col-md-6">
 								<div class="section-plan__inner-wrap market hovered">
@@ -371,7 +377,14 @@ window.onload = function(){
 					// 			</div>
 					// 		</div>`
 					// );
-					for(let i = (alreadyHere.length); i < (alreadyHere.length + count); i++){
+					let paramCount = 0;
+					if(alreadyHere.length + count <= arrayFilteredContent.length){
+						paramCount = count;
+					}else{
+						paramCount = count - (alreadyHere.length + count - arrayFilteredContent.length);
+					}
+					console.log(alreadyHere.length + count, arrayFilteredContent.length, paramCount);
+					for(let i = (alreadyHere.length); i < (alreadyHere.length + paramCount); i++){
 						workBlock.insertAdjacentHTML("beforeend", 
 							`<article class="section-plan col-12">
 								<div class="section-plan__inner-wrap lines row hovered">
@@ -417,28 +430,34 @@ window.onload = function(){
 						}
 					}
 				}else if(view['sortView'] == 'lines'){
-					workBlock.insertAdjacentHTML("beforeend", 
-						`<div class="section-plan section-plan__inner-wrap lines row hovered">
-								<div class="section-plan__cell col">
-									№ Кв.
-								</div>
-								<div class="section-plan__cell col">
-									№ Дома
-								</div>
-								<div class="section-plan__cell col">
-									№ Подъезда
-								</div>
-								<div class="section-plan__cell col">
-									Кол-во комнат
-								</div>
-								<div class="section-plan__cell col">
-									Общ. площ., м.кв.
-								</div>
-								<div class="section-plan__cell col">
-									Стоимость, руб.
-								</div>
-							</div>`
-					);
+					// workBlock.insertAdjacentHTML("beforeend", 
+					// 	`<div class="section-plan_hight-row section-plan__inner-wrap_hight-row lines row hovered">
+					// 			<div class="section-plan__cell main-row col">
+					// 				№ Кв.
+					// 			</div>
+					// 			<div class="section-plan__cell main-row col">
+					// 				№ Дома
+					// 			</div>
+					// 			<div class="section-plan__cell main-row col">
+					// 				№ Подъезда
+					// 			</div>
+					// 			<div class="section-plan__cell main-row col">
+					// 				Кол-во комнат
+					// 			</div>
+					// 			<div class="section-plan__cell main-row col">
+					// 				Общ. площ., м.кв.
+					// 			</div>
+					// 			<div class="section-plan__cell main-row col">
+					// 				Стоимость, руб.
+					// 			</div>
+					// 		</div>`
+					// );
+					let paramCount = 0;
+					if(alreadyHere.length + count <= arrayFilteredContent.length){
+						paramCount = count;
+					}else{
+						paramCount = count - (alreadyHere.length + count - arrayFilteredContent.length);
+					}
 					for(let i = (alreadyHere.length); i < (alreadyHere.length + count); i++){
 						workBlock.insertAdjacentHTML("beforeend", 
 							`<article class="section-plan col-12">
@@ -468,6 +487,9 @@ window.onload = function(){
 				}
 			}
 		}else{
+			if(document.querySelector(".section-plan_hight-row") != undefined || document.querySelector(".section-plan_hight-row") != null){
+				document.querySelector(".section-plan_hight-row").remove();
+			}
 			for(let i of alreadyHere){
 				i.remove();
 			}
@@ -490,55 +512,87 @@ window.onload = function(){
 				}
 			}else if(view['sortView'] == 'lines'){
 				workBlock.insertAdjacentHTML("beforeend", 
-					`<div class="section-plan section-plan__inner-wrap lines row hovered">
-							<div class="section-plan__cell col">
+					`<div class="section-plan_hight-row section-plan__inner-wrap_hight-row lines row hovered">
+							<div class="section-plan__cell main-row col">
 								№ Кв.
 							</div>
-							<div class="section-plan__cell col">
+							<div class="section-plan__cell main-row col">
 								№ Дома
 							</div>
-							<div class="section-plan__cell col">
+							<div class="section-plan__cell main-row col">
 								№ Подъезда
 							</div>
-							<div class="section-plan__cell col">
+							<div class="section-plan__cell main-row col">
 								Кол-во комнат
 							</div>
-							<div class="section-plan__cell col">
+							<div class="section-plan__cell main-row col">
 								Общ. площ., м.кв.
 							</div>
-							<div class="section-plan__cell col">
+							<div class="section-plan__cell main-row col">
 								Стоимость, руб.
 							</div>
 						</div>`
 				);
-				for(let i = (alreadyHere.length); i < (alreadyHere.length + count); i++){
-					workBlock.insertAdjacentHTML("beforeend", 
-						`<article class="section-plan col-12">
-							<div class="section-plan__inner-wrap lines row hovered">
-								<div class="section-plan__cell col">
-									${arrayFilteredContent[i][8]}
+				// for(let i = (alreadyHere.length); i < (alreadyHere.length + count); i++){
+				if(arrayFilteredContent.length < count){
+					for(let i = 0; i < arrayFilteredContent.length; i++){
+						workBlock.insertAdjacentHTML("beforeend", 
+							`<article class="section-plan col-12">
+								<div class="section-plan__inner-wrap lines row hovered">
+									<div class="section-plan__cell col">
+										${arrayFilteredContent[i][8]}
+									</div>
+									<div class="section-plan__cell col">
+										${arrayFilteredContent[i][5]}
+									</div>
+									<div class="section-plan__cell col">
+										${arrayFilteredContent[i][2]}
+									</div>
+									<div class="section-plan__cell col">
+										${arrayFilteredContent[i][1]}
+									</div>
+									<div class="section-plan__cell col">
+										${arrayFilteredContent[i][6]}
+									</div>
+									<div class="section-plan__cell col">
+										${arrayFilteredContent[i][3]}
+									</div>
 								</div>
-								<div class="section-plan__cell col">
-									${arrayFilteredContent[i][5]}
+							</article>`
+						);
+					}
+				}else{
+					for(let i = 0; i < count; i++){
+						workBlock.insertAdjacentHTML("beforeend", 
+							`<article class="section-plan col-12">
+								<div class="section-plan__inner-wrap lines row hovered">
+									<div class="section-plan__cell col">
+										${arrayFilteredContent[i][8]}
+									</div>
+									<div class="section-plan__cell col">
+										${arrayFilteredContent[i][5]}
+									</div>
+									<div class="section-plan__cell col">
+										${arrayFilteredContent[i][2]}
+									</div>
+									<div class="section-plan__cell col">
+										${arrayFilteredContent[i][1]}
+									</div>
+									<div class="section-plan__cell col">
+										${arrayFilteredContent[i][6]}
+									</div>
+									<div class="section-plan__cell col">
+										${arrayFilteredContent[i][3]}
+									</div>
 								</div>
-								<div class="section-plan__cell col">
-									${arrayFilteredContent[i][2]}
-								</div>
-								<div class="section-plan__cell col">
-									${arrayFilteredContent[i][1]}
-								</div>
-								<div class="section-plan__cell col">
-									${arrayFilteredContent[i][6]}
-								</div>
-								<div class="section-plan__cell col">
-									${arrayFilteredContent[i][3]}
-								</div>
-							</div>
-						</article>`
-					);
+							</article>`
+						);
+					}
 				}
 			}
 		}
+		//
+		makeMeOpeningModalWindow(arrayFilteredContent);
 	}
 	// добавим еще позиций
 	let pushToContentBtn = document.querySelector(".button-push.push-to-content.hovered");
@@ -550,24 +604,129 @@ window.onload = function(){
 	// управление
 	//
 	// управление вызовом модального окна
-	let onModalBtns = document.querySelectorAll(".section-plan__info-block");
-	//
-	let modalBackground = document.querySelector(".modal-win");
-	let modalWindow = document.querySelector(".modal-win__wrap.container");
-	// вызываем окно
-	for(let i of onModalBtns){
-		i.addEventListener("click", function(){
-			modalBackground.classList.add("active");
-			modalWindow.classList.add("active")
-		})
+	function makeMeOpeningModalWindow(obj){
+		let onModalBtns = document.querySelectorAll(".section-plan__info-block");
+		//
+		let modalBackground = document.querySelector(".modal-win");
+		let modalWindow = document.querySelector(".modal-win__wrap.container");
+		// вызываем окно
+		for(let i = 0; i < onModalBtns.length; i++){
+			onModalBtns[i].addEventListener("click", function(){
+				modalBackground.classList.add("active");
+				modalWindow.classList.add("active")
+				giveMeDataForSelectedFlat(i, obj);
+			})
+		}
 	}
-	// выключим окно
-	let modalClose = document.querySelector(".modal-win__close-me-plz");
-	modalClose.addEventListener("click", function(){
-			modalBackground.classList.remove("active");
-			modalWindow.classList.remove("active")
-	})
 	//
+	function giveMeDataForSelectedFlat(i, obj){
+		console.log(i, obj);
+		//
+		let replaceDataWrap = document.querySelector(".modal-win__info-block");
+		console.log(replaceDataWrap.children, replaceDataWrap.children.length);
+		// for(let j = 0; j < replaceDataWrap.children.length; j++){
+		// for(let j of replaceDataWrap.children){
+		// 	j.remove();
+		// 	console.log(j);
+		// }
+		replaceDataWrap.children[0].remove();
+		replaceDataWrap.insertAdjacentHTML("afterbegin", 
+			`<div class="modal-win__info-wrap">
+				<div class="title">
+					<div class="row-in-block__title">
+						${obj[i][1]}-КОМНАТНАЯ ${obj[i][4]}
+					</div>
+				</div>
+				<div class="modal-win__row-in-block area">
+					<div class="row-in-block__title">
+						Площадь, м.кв.
+					</div>
+					<div class="row-in-block__value">
+						${obj[i][6]}
+					</div>
+				</div>
+				<div class="modal-win__row-in-block price">
+					<div class="row-in-block__title">
+						Стоимость, млн.руб.
+					</div>
+					<div class="row-in-block__value">
+						${obj[i][3]}
+					</div>
+				</div>
+				<div class="modal-win__row-in-block number">
+					<div class="row-in-block__title">
+						Номер
+					</div>
+					<div class="row-in-block__value">
+						${obj[i][8]}
+					</div>
+				</div>
+				<div class="modal-win__row-in-block floor">
+					<div class="row-in-block__title">
+						Этаж
+					</div>
+					<div class="row-in-block__value">
+						${obj[i][9]}
+					</div>
+				</div>
+				<div class="modal-win__row-in-block block-section">
+					<div class="row-in-block__title">
+						Секция
+					</div>
+					<div class="row-in-block__value">
+						${obj[i][2]}
+					</div>
+				</div>
+				<div class="modal-win__row-in-block house">
+					<div class="row-in-block__title">
+						Дом
+					</div>
+					<div class="row-in-block__value">
+						${obj[i][5]}
+					</div>
+				</div>
+			</div>`
+		);
+		//
+		let replaceImageWrap = document.querySelector(".modal-win__image-block");
+		replaceImageWrap.children[0].remove();
+		replaceImageWrap.insertAdjacentHTML("beforeend",
+			`<img src="${obj[i][0]}" alt="" class="modal-win__img">`
+		);
+		//
+		onTabsInModalWindow();
+	}
+	// переключение между вкладками модального окна
+	function onTabsInModalWindow(){
+		let tabWithInfo = document.querySelector(".modal-win__inner-wrap.plan");
+		let tabWithForm = document.querySelector(".modal-win__inner-wrap.callback-form");
+		let btnOnTabWithInfo = document.querySelector(".button-push.push-on-lid");
+		let btnOnTabWithForm = document.querySelector(".button-push.callback-form__forth-button");
+		//
+		let handlerForTabWithInfo = function(){
+			tabWithInfo.classList.remove("active");
+			tabWithForm.classList.add("active");
+		};
+		btnOnTabWithInfo.addEventListener("click", handlerForTabWithInfo);
+		//
+		let handlerForTabWithForm = function(){
+			tabWithForm.classList.remove("active");
+			tabWithInfo.classList.add("active");
+		}
+		btnOnTabWithForm.addEventListener("click", handlerForTabWithForm);
+		//
+		// выключим окно
+		let modalBackground = document.querySelector(".modal-win");
+		let modalWindow = document.querySelector(".modal-win__wrap.container");
+		let modalClose = document.querySelector(".modal-win__close-me-plz");
+		modalClose.addEventListener("click", function(){
+				modalBackground.classList.remove("active");
+				modalWindow.classList.remove("active");
+				//
+				btnOnTabWithInfo.removeEventListener("click", handlerForTabWithInfo);
+				btnOnTabWithForm.removeEventListener("click", handlerForTabWithForm);
+		});
+	}
 	// управление отображениями нажатых кнопок
 	let roomBtns = document.querySelectorAll(".button.rooms-item");
 	for(let i of roomBtns){
@@ -816,7 +975,7 @@ window.onload = function(){
 				managementDisplayPanel['sortView'] = "market";
 			}
 			//
-			console.log(managementDisplayPanel);
+			// console.log(managementDisplayPanel);
 			onStartFilter();
 			return managementDisplayPanel;
 		}
@@ -831,5 +990,29 @@ window.onload = function(){
 		// console.log(flatsListAfterFilter);
 
 		drawContent(flatsListAfterFilter, defaultCount, true, managementDisplayPanel);
+	}
+	// спец функционал для мобилки
+	if (window.matchMedia('(max-width: 320px)').matches || window.matchMedia('(min-width: 320px)').matches) {
+		let openFilter = document.querySelector(".push-to-filter");
+		//
+		let manageView = document.querySelector(".manage-view");
+		let rangesList = document.querySelector(".ranges-list");
+		let checkesList = document.querySelector(".checkes-list");
+		let roomsList = document.querySelector(".rooms-list");
+		let managementArray =[manageView,rangesList,checkesList,roomsList];
+		//
+		openFilter.addEventListener("click", function(){
+			if(manageView.classList.contains("active")){
+				for(let i of managementArray){
+					i.classList.remove("active");
+				}
+				openFilter.innerHTML = 'Показать фильтр';
+			}else{
+				for(let i of managementArray){
+					i.classList.add("active");
+				}
+				openFilter.innerHTML = 'Скрыть фильтр';
+			}
+		});
 	}
 }
